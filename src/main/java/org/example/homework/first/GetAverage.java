@@ -16,8 +16,11 @@ public class GetAverage {
 
         double average = numbers1.stream()
                 .filter(number -> number % 2 == 0)
-                .mapToInt(n -> n)
+                .mapToInt(Integer::intValue)
                 .average()
+                .stream()
+                .map(Math::round)
+                .findFirst()
                 .orElse(0);
 
         if(average != 0){
