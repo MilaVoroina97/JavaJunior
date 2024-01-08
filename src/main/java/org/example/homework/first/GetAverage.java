@@ -3,6 +3,7 @@ package org.example.homework.first;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Напишите программу, которая использует Stream API для обработки списка чисел.
@@ -23,11 +24,17 @@ public class GetAverage {
                 .findFirst()
                 .orElse(0);
 
+//      Еще один вариант:
+//        double average1 = numbers.stream()
+//                .filter(n -> n % 2 == 0)
+//                .collect(Collectors.averagingDouble(x -> x));
+
         if(average != 0){
             System.out.println("The average of numbers in list is " + average);
         }else {
             System.out.println("There is not even numbers in this list");
         }
+
 
     }
 }
