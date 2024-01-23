@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String... args) {
 
         Dog dog1 = new Dog("Buddy", 5, true);
         Cat cat1 = new Cat("Kitty", 3, true);
