@@ -1,10 +1,8 @@
 package org.example.homework.two.taskGB;
 
 
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
+import java.util.Arrays;
 
 /**
  * Создайте абстрактный класс "Animal" с полями "name" и "age".
@@ -18,16 +16,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Animal[] animals1 = new Animal[3];
-        animals1[0] = new Dog("Buddy", 5, true);
-        animals1[1] = new Cat("Kitty", 3, true);
-        animals1[2] = new Cat("Tom", 4, false);
-
         Dog dog1 = new Dog("Buddy", 5, true);
         Cat cat1 = new Cat("Kitty", 3, true);
         Cat cat2 = new Cat("Tom", 4, false);
         Dog dog2 = new Dog("Rax",2,false);
         Cat cat3 = new Cat("Twix",1, true);
+
 
         Animal[] animals = (Animal[]) Array.newInstance(Animal.class,5);
         Array.set(animals,0,dog1);
@@ -36,35 +30,57 @@ public class Main {
         Array.set(animals,3,dog2);
         Array.set(animals,4,cat3);
 
-        for(Animal animal : animals1){
+        for (Animal animal : animals) {
+            // Get the class of the animal
             Class<?> clazz = animal.getClass();
-            Field[] fields = clazz.getDeclaredFields();
-            for(Field field : fields){
 
+            // Print the common fields from the Animal superclass
+            Field[] fields = clazz.getSuperclass().getDeclaredFields();
+            for (Field field : fields) {
                 field.setAccessible(true);
                 String fieldName = field.getName();
                 Object fieldValue;
                 try {
                     fieldValue = field.get(animal);
-                }catch (IllegalAccessException e){
+                } catch (IllegalAccessException e) {
                     fieldValue = "Field is null";
                 }
-
-                System.out.println(fieldName + " : " + fieldValue);
+                System.out.println(fieldName + " : " + fieldValue.toString());
             }
 
+            // Print the fields specific to Dog and Cat subclasses
+            Field[] specificFields = clazz.getDeclaredFields();
+            for (Field specificField : specificFields) {
+                specificField.setAccessible(true);
+                String fieldName = specificField.getName();
+                Object fieldValue;
+                try {
+                    fieldValue = specificField.get(animal);
+                } catch (IllegalAccessException e) {
+                    fieldValue = "Field is null";
+                }
+                System.out.println(fieldName + " : " + fieldValue.toString());
+            }
+
+            // Invoke the makeSound method
             Method[] methods = clazz.getDeclaredMethods();
-            for (Method method : methods){
-                if(method.getName().equals("makeSound") && method.getParameterCount() == 0){
-                    try {
-                        method.invoke(animal);
-                    }catch (IllegalAccessException | InvocationTargetException e){
-                        System.out.println(e.getCause());
-                    }
+            Method makeSoundMethod = Arrays.stream(methods)
+                    .filter(method -> Modifier.isPublic(method.getModifiers())
+                            && method.getName().equals("makeSound"))
+                    .findFirst()
+                    .orElse(null);
+            if (makeSoundMethod != null) {
+                try {
+                    makeSoundMethod.invoke(animal);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    System.out.println(e.getCause());
                 }
             }
 
             System.out.println();
         }
+
+
     }
 }
+
