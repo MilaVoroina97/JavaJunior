@@ -40,11 +40,16 @@ public class Program {
         user.setEmail("newEmail@gmail.com");
 
         String updateQuery = queryBuilder.buildUpdateQuery(user);
+
+        String deleteQuery = queryBuilder.buildDeleteQuery(Employee.class,pk);
+
         System.out.println(insertResult);
 
         System.out.println(selectQuery);
 
         System.out.println(updateQuery);
+
+        System.out.println(deleteQuery);
 
     }
 }

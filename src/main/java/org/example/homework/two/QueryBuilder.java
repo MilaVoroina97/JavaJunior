@@ -6,7 +6,7 @@ import java.util.UUID;
 public class QueryBuilder {
 
     /**
-     * Создание запроса на добавление информации в БД
+     * Создание запроса на добавление записи в БД
      */
 
     public String buildInsertQuery(Object object) throws IllegalAccessException {
@@ -81,7 +81,7 @@ public class QueryBuilder {
 
     }
     /**
-     * Создание запроса на обновление / изменение данных в БД
+     * Создание запроса на обновление / изменение записи в БД
      */
 
     public String buildUpdateQuery(Object object) throws IllegalAccessException {
@@ -132,6 +132,37 @@ public class QueryBuilder {
             return "";
         }
 
+        return query.toString();
+    }
+
+    /**
+     * Создание запроса на удаление записи из БД
+     *
+     * @param clazz -  тип объекта (описатель класса), чтобы понять, из какой таблицы в БД надо удалить
+     * @param primaryKey - идентификатор записи, чтобы понять, какую записть удалить
+     */
+
+    public String buildDeleteQuery(Class<?> clazz, UUID primaryKey){
+
+        StringBuilder query = new StringBuilder("DELETE FROM ");
+        if(clazz.isAnnotationPresent(Table.class)){
+            Table tableAnnotation = clazz.getAnnotation(Table.class);
+            query.append(tableAnnotation.name())
+                    .append(" WHERE ");
+
+            Field[] fields = clazz.getDeclaredFields();
+            for(Field field : fields){
+                if(field.isAnnotationPresent(Column.class)){
+                    Column columnAnnotation = field.getAnnotation(Column.class);
+                    if(columnAnnotation.primaryKey()){
+                        query.append(columnAnnotation.name())
+                                .append(" = '")
+                                .append(primaryKey)
+                                .append("'");
+                    }
+                }
+            }
+        }
         return query.toString();
     }
 
