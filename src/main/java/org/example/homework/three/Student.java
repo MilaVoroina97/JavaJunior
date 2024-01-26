@@ -23,10 +23,10 @@ import java.util.Base64;
 @JsonIgnoreProperties(value = {""})
 public class Student implements Externalizable {
 
-    @XmlElement
+    @XmlElement(name = "name")
     private String name;
 
-    @XmlAttribute
+    @XmlElement(name = "age")
     private int age;
 
     @JsonIgnore

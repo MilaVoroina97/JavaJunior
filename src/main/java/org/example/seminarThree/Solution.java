@@ -19,7 +19,7 @@ public class Solution implements Serializable {
         public B() {}
     }
 
-    public class C extends B implements Serializable {
+    public class C extends B implements Externalizable{
          String Cname;
         private static final long serialVersionUID = 7829136421241571165L;
         public C(String name) {
@@ -29,16 +29,14 @@ public class Solution implements Serializable {
 
         public C(){}
 
-        @Serial
-        private void writeObject(ObjectOutputStream outputStream) throws IOException {
-            outputStream.defaultWriteObject();
-            outputStream.writeObject(Cname);
+        @Override
+        public void writeExternal(ObjectOutput out) throws IOException {
+
         }
 
-        @Serial
-        private void readObject(ObjectInputStream objectInputStream) throws IOException, ClassNotFoundException {
-            objectInputStream.defaultReadObject();
-            Cname = (String) objectInputStream.readObject();
+        @Override
+        public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+
         }
     }
 
