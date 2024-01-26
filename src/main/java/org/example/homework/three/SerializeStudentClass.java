@@ -26,32 +26,36 @@ public class SerializeStudentClass {
                 }
             }else if(fileName.endsWith(".xml")){
                 xmlMapper.configure(SerializationFeature.INDENT_OUTPUT,true);
-                xmlMapper.writeValue(new File(fileName),true);
+                xmlMapper.writeValue(new File(fileName),student);
             }
         }catch (IOException e){
             System.out.println(e.getMessage());
         }
 
+        System.out.println("Serialization done");
+
     }
 
-    public static Student deserializeStudent(String filename,Student student){
+    public static Student deserializeStudent(String filename){
         File file = new File(filename);
+        Student student = new Student();
+        //xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         if(file.exists()){
             try {
                 if(filename.endsWith(".json")){
-                    student = objectMapper.readValue(file,objectMapper.getTypeFactory().constructType(Student.class));
+                    student = objectMapper.readValue(file,Student.class);
                 }else if(filename.endsWith(".bin")){
                     try(ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file))){
                         student = (Student) objectInputStream.readObject();
                     }
                 }else if(filename.endsWith("xml")){
-                    student = xmlMapper.readValue(file,xmlMapper.getTypeFactory().constructType(Student.class));
+                    student = xmlMapper.readValue(file, Student.class);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println(e.getMessage());
             }
         }
-
+        System.out.println("Deserialization done");
         return student;
     }
 

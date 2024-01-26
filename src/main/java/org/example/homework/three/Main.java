@@ -2,8 +2,6 @@ package org.example.homework.three;
 
 
 import java.io.IOException;
-import java.util.Scanner;
-
 public class Main {
 
     public static void main(String[] args) throws IOException {
@@ -16,8 +14,9 @@ public class Main {
         SerializeStudentClass.serializeStudent(SerializeStudentClass.FILE_JSON,student);
 
         System.out.println("Start deserialization");
-        SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_BIN,student);
-        SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_XML,student);
-        SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_JSON,student);
+        SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_BIN);
+        SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_XML);
+        Student student1 = SerializeStudentClass.deserializeStudent(SerializeStudentClass.FILE_JSON);
+        System.out.println(student1);
     }
 }

@@ -1,6 +1,11 @@
 package org.example.homework.three;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlValue;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,9 +19,14 @@ import java.util.Base64;
 @ToString
 @Getter
 @Setter
+@XmlRootElement(name = "student")
+@JsonIgnoreProperties(value = {""})
 public class Student implements Externalizable {
 
+    @XmlElement
     private String name;
+
+    @XmlAttribute
     private int age;
 
     @JsonIgnore
@@ -28,19 +38,19 @@ public class Student implements Externalizable {
         this.GPA = GPA;
     }
 
-    public Student(String name, int age){
+    public Student(String name, int age) {
         this.name = name;
         this.age = age;
         this.GPA = 0.0;
-
     }
+
     public Student(){}
 
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(this.name);
         out.writeInt(this.age);
-        out.writeObject(this.encryptString(Double.toString(this.GPA)));
+        out.writeObject(this.encryptString(Double.toString(this.getGPA())));
 
     }
 
@@ -48,7 +58,7 @@ public class Student implements Externalizable {
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
 
         name = (String) in.readObject();
-        age = (int) in.readObject();
+        age = in.readInt();
         GPA = Double.parseDouble(this.decryptString((String) in.readObject()));
     }
     private String decryptString(String data){
