@@ -13,6 +13,14 @@
   </item>
   <item>
     <title>Сделать ДЗ</title>
+    <done>true</done>
+  </item>
+  <item>
+    <title>Сделать ДЗ</title>
+    <done>false</done>
+  </item>
+  <item>
+    <title>4</title>
     <done>false</done>
   </item>
 </ArrayList>

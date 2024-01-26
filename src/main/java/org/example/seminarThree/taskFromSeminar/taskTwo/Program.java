@@ -15,12 +15,12 @@ public class Program {
         File file = new File(FILE_JSON);
         if(file.exists() && !file.isDirectory()){
 
-            tasks = loadTasksFromFile(FILE_JSON);
+            tasks = ToDoListApp.loadTaskFromFile(FILE_JSON);
         }else {
             tasks = prepareTasks();
-            ToDoListApp.saveTasksToFile(FILE_JSON,tasks);
-            ToDoListApp.saveTasksToFile(FILE_BIN,tasks);
-            ToDoListApp.saveTasksToFile(FILE_XML,tasks);
+            ToDoListApp.saveTaskToFile(FILE_JSON,tasks);
+            ToDoListApp.saveTaskToFile(FILE_BIN,tasks);
+            ToDoListApp.saveTaskToFile(FILE_XML,tasks);
         }
 
         displayTasks(tasks);
@@ -43,9 +43,9 @@ public class Program {
                     ToDoListApp.markTaskAsDone(scanner, tasks);
                     break;
                 case "3":
-                    ToDoListApp.saveTasksToFile(FILE_JSON, tasks);
-                    ToDoListApp.saveTasksToFile(FILE_BIN, tasks);
-                    ToDoListApp.saveTasksToFile(FILE_XML, tasks);
+                    ToDoListApp.saveTaskToFile(FILE_JSON, tasks);
+                    ToDoListApp.saveTaskToFile(FILE_BIN, tasks);
+                    ToDoListApp.saveTaskToFile(FILE_XML, tasks);
                     System.out.println("Список задач сохранен.");
                     scanner.close();
                     System.exit(0);
@@ -53,6 +53,7 @@ public class Program {
                     System.out.println("Некорректный выбор. Попробуйте снова.");
                     break;
             }
+            displayTasks(tasks);
         }
     }
 
