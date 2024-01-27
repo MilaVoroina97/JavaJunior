@@ -32,7 +32,6 @@ public class SerializeStudentClass {
             System.out.println(e.getMessage());
         }
 
-        System.out.println("Serialization done");
 
     }
 
@@ -55,7 +54,6 @@ public class SerializeStudentClass {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("Deserialization done");
         return student;
     }
 

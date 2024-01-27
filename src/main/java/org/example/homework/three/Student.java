@@ -1,21 +1,19 @@
 package org.example.homework.three;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.xml.bind.annotation.XmlAttribute;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlValue;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Externalizable;
-import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.util.Base64;
+
 
 @ToString
 @Getter
@@ -24,13 +22,12 @@ import java.util.Base64;
 @JsonIgnoreProperties(value = {""})
 public class Student implements Externalizable {
 
-    @XmlElement(name = "name")
+    @JsonProperty("name")
     private String name;
 
-    @XmlElement(name = "age")
+    @JsonProperty("age")
     private int age;
-
-    @XmlJavaTypeAdapter(GPAXmlAdapter.class)
+    @Encrypt
     private double GPA;
 
     public Student(String name, int age, double GPA) {
@@ -39,26 +36,32 @@ public class Student implements Externalizable {
         this.GPA = GPA;
     }
 
-    public Student(String name, int age) {
-        this.name = name;
-        this.age = age;
-        this.GPA = 0.0;
-    }
 
     public Student(){}
 
     @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-        out.writeObject(this.name);
-        out.writeInt(this.age);
+    public void writeExternal(ObjectOutput out){
+        try {
+            out.writeObject(this.name);
+            out.writeInt(this.age);
+            out.writeObject(new GPAXmlAdapter().marshal(this.GPA));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+    public void readExternal(ObjectInput in){
 
-        name = (String) in.readObject();
-        age = in.readInt();
+
+        try {
+            this.name = (String) in.readObject();
+            this.age = in.readInt();
+            this.GPA = new GPAXmlAdapter().unmarshal((String) in.readObject());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
