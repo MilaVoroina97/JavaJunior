@@ -10,11 +10,13 @@ import java.io.StringWriter;
 
 public class EncryptedJsonSerializer extends JsonSerializer<Object> {
 
-    private final JsonSerializer<Object> serializer;
+    private JsonSerializer<Object> serializer;
 
     public EncryptedJsonSerializer(JsonSerializer<Object> serializer) {
         this.serializer = serializer;
     }
+
+    public EncryptedJsonSerializer(){}
 
     @Override
     public void serialize(Object value, JsonGenerator gen, SerializerProvider serializers) throws IOException {

@@ -23,7 +23,7 @@ public class EncryptionModule extends Module {
 
     @Override
     public Version version() {
-        return version();
+        return VERSION;
     }
 
     @Override

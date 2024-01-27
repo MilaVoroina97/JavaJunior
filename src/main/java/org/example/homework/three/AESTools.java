@@ -76,7 +76,7 @@ public class AESTools {
             SecretKeySpec skey = new SecretKeySpec(key.getBytes(), algorithm);
             IvParameterSpec iv = new IvParameterSpec(key.getBytes(), 0, offset);
             Cipher cipher = Cipher.getInstance(transformation);
-            Cipher.init(Cipher.DECRYPT_MODE, skey, iv);// Initialize
+            cipher.init(Cipher.DECRYPT_MODE, skey, iv);// Initialize
             byte[] result = cipher.doFinal(new Base64().decode(content));
             return new String(result); // decrypt
         } catch (Exception e) {
