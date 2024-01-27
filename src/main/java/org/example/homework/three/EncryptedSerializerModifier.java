@@ -3,7 +3,6 @@ package org.example.homework.three;
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.introspect.BasicBeanDescription;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 
@@ -15,12 +14,11 @@ public class EncryptedSerializerModifier extends BeanSerializerModifier {
     public EncryptedSerializerModifier() {
     }
 
-
     @Override
     public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc, List<BeanPropertyWriter> beanProperties) {
 
         List<BeanPropertyWriter> newWriters = new ArrayList<>();
-        for (BeanPropertyWriter writer : beanProperties) {
+        for (BeanPropertyWriter writer : beanProperties) { // Change the variable type to BeanPropertyWriterBase
             if (null == writer.getAnnotation(Encrypt.class)) {
                 newWriters.add(writer);
             } else {
