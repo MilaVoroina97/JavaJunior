@@ -6,6 +6,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -29,8 +30,8 @@ public class Student implements Externalizable {
     @XmlElement(name = "age")
     private int age;
 
-    @JsonIgnore
-    private transient double GPA;
+    @XmlJavaTypeAdapter(GPAXmlAdapter.class)
+    private double GPA;
 
     public Student(String name, int age, double GPA) {
         this.name = name;
@@ -50,7 +51,6 @@ public class Student implements Externalizable {
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeObject(this.name);
         out.writeInt(this.age);
-        out.writeObject(this.encryptString(Double.toString(this.getGPA())));
 
     }
 
@@ -59,17 +59,6 @@ public class Student implements Externalizable {
 
         name = (String) in.readObject();
         age = in.readInt();
-        GPA = Double.parseDouble(this.decryptString((String) in.readObject()));
-    }
-    private String decryptString(String data){
-        String decrypted = new String(Base64.getDecoder().decode(data));
-        System.out.println(decrypted);
-        return decrypted;
     }
 
-    private String encryptString(String data){
-        String encrypted = Base64.getEncoder().encodeToString(data.getBytes());
-        System.out.println(encrypted);
-        return encrypted;
-    }
 }
