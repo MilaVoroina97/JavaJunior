@@ -1,5 +1,8 @@
 package org.example.homework.two.taskGB;
 
+import lombok.ToString;
+
+@ToString
 public class Cat extends Animal{
 
     private boolean canSayMeow;

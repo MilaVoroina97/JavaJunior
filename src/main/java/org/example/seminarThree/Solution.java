@@ -2,34 +2,27 @@ package org.example.seminarThree;
 
 import java.io.*;
 
-public class Solution implements Externalizable {
-    @Override
-    public void writeExternal(ObjectOutput out) throws IOException {
-
-    }
-
-    @Override
-    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
-
-    }
+public class Solution {
 
     public class A {
-        transient String name = "A";
+        String name = "A";
 
-        public A() {super();}
         public A(String name) {
             this.name += name;
         }
 
+        public A(){}
+
     }
     public class B extends A {
-        transient String name = "B";
+        String name = "B";
 
-        public B() {super();}
         public B(String name) {
             super(name);
             this.name += name;
         }
+
+        public B(){super();}
 
     }
 
@@ -37,14 +30,12 @@ public class Solution implements Externalizable {
         String Cname;
         private static final long serialVersionUID = 7829136421241571165L;
 
-        public C() {
-            super();
-        }
-
         public C(String name) {
             super(name);
             this.Cname = name;
         }
+
+        public C(){super();}
 
         public String getCname() {
             return this.Cname;
