@@ -1,33 +1,49 @@
 package org.example.seminarFour;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-
-import java.sql.*;
+import java.util.List;
 
 public class DB {
 
-    private final static String URL = "jdbc:mysql://localhost:3306";
+    private final static String URL = "jdbc:mysql://localhost:3306/test?useSSL=false&allowPublicKeyRetrieval=true";
     private final static String USER = "root";
     private final static String PASSWORD = "admin";
 
-    public static void con(){
-        final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure()
-                .build();
 
-        SessionFactory sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-        Magic magic = new Magic("Magic arrow",50,40);
+    public static void con(){
+        Connector connector = new Connector();
+        try(Session session = connector.getSession()){
+/*            List<Magic> books = session.createQuery("FROM Magic",Magic.class).getResultList();
+            books.forEach(b -> System.out.println(b));*/
+
+            String hql = "from Magic where id = :id";
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+/*    public static void con(){
+
+        Connector connector = new Connector();
+        Session session = connector.getSession();
+        Magic magic = new Magic("Magic arrow",50,40,0);
         session.beginTransaction();
+        session.save(magic);
+        magic = new Magic("Молния", 25, 0, 0);
+        session.save(magic);
+        magic = new Magic("Каменная кожа", 0, 0, 6);
+        session.save(magic);
+        magic = new Magic("Жажда крови", 0, 6, 0);
+        session.save(magic);
+        magic = new Magic("Жажда крови", 0, 6, 0);
+        session.save(magic);
+        magic = new Magic("Проклятие", 0, -3, 0);
+        session.save(magic);
+        magic = new Magic("Лечение", -30, 0, 0);
         session.save(magic);
         session.getTransaction().commit();
         session.close();
-    }
+    }*/
 
 
     /*public static void con(){

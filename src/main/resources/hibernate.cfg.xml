@@ -4,15 +4,15 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property
-                name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property
-                name="hibernate.connection.url">jdbc:mysql://localhost:3306</property>
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">admin</property>
-        <property
-                name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
+
+        <!-- Context configuration -->
+        <property name="hibernate.current_session_context_class">thread</property>
         <mapping class="org.example.seminarFour.Magic" />
     </session-factory>
 </hibernate-configuration>
