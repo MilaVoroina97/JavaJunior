@@ -1,6 +1,8 @@
 package org.example.seminarFour;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+
 import java.util.List;
 
 public class DB {
@@ -16,7 +18,25 @@ public class DB {
 /*            List<Magic> books = session.createQuery("FROM Magic",Magic.class).getResultList();
             books.forEach(b -> System.out.println(b));*/
 
-            String hql = "from Magic where id = :id";
+            // hql query - we will search object from Magic class by its id
+/*            String hql = "from Magic where id = :id";
+            Query<Magic> query = session.createQuery(hql,Magic.class);
+            query.setParameter("id",4);
+            Magic magic = query.getSingleResult();
+            System.out.println(magic);
+            magic.setAttBonus(100);
+            magic.setName("Danger");
+            session.beginTransaction();
+            // change the object
+            session.update(magic);
+            session.getTransaction().commit();*/
+
+            Transaction t = session.beginTransaction();
+            List<Magic> magics = session.createQuery("FROM Magic", Magic.class).getResultList();
+            // delete all objects from DB
+            magics.forEach(m -> {
+                session.delete(m);
+            });
 
         }catch (Exception e){
             System.out.println(e.getMessage());
