@@ -9,7 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-public class Hibernate {
+public class DBConfiguration {
     private static final View cv = new View();
 
 
