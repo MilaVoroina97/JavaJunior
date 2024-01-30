@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 import org.example.homework.four.Model.Course;
 import org.example.homework.four.UserInterface.View;
 
-public class Main {
+public class Program {
     public static void main(String[] args) {
         View view = new View();
         SessionFactory sessionFactory = new Configuration()
