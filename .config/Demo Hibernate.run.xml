@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Demo Hibernate" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.example.seminarFour.tasksFromSeminar.task2.Program" />
+    <module name="Java_Junior" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
