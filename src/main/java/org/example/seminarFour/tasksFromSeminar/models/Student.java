@@ -1,4 +1,4 @@
-package org.example.seminarFour.tasksFromSeminar.module;
+package org.example.seminarFour.tasksFromSeminar.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
