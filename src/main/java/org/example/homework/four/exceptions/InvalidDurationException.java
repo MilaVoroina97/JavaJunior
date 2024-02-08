@@ -1,4 +1,4 @@
-package org.example.homework.four.exceptions;
+package org.example.homework.four.dao.exceptions;
 
 public class InvalidDurationException extends Exception{
 
