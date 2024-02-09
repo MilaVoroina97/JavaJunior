@@ -1,4 +1,4 @@
-package org.example.homework.four.service.dao;
+package org.example.homework.four.dao;
 
 import org.example.homework.four.model.Course;
 

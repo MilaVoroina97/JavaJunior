@@ -1,12 +1,11 @@
 package org.example.seminarFour;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import org.example.homework.two.Column;
 import org.example.homework.two.Table;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 @Entity //описываем объект - сущность: объект, созданный на основе этого класса, будет использоваться Hibernate при
 //взаимодействии с базой данных.
 @Table(name="Magic") // связываем класс с определенной схемой и таблицей

@@ -6,7 +6,7 @@ import org.hibernate.usertype.UserType;
 import java.io.Serializable;
 import java.sql.*;
 
-public class CustomStringArrayType implements UserType<Double[]> {
+public class CustomDoubleArrayType implements UserType<Double[]> {
     @Override
     public int getSqlType() {
         return Types.ARRAY;
@@ -63,12 +63,12 @@ public class CustomStringArrayType implements UserType<Double[]> {
 
     @Override
     public Serializable disassemble(Double[] doubles) {
-        return (Double[]) this.deepCopy(doubles);
+        return this.deepCopy(doubles);
     }
 
     @Override
     public Double[] assemble(Serializable serializable, Object o) {
-        return this.deepCopy((Double[]) o);
+        return this.deepCopy((Double[]) serializable);
     }
 
     @Override

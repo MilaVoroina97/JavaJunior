@@ -33,7 +33,7 @@ public class Student implements Serializable {
     @JsonProperty("GPA")
     @JsonSerialize(using = EncryptedJsonSerializer.class)
     @JsonDeserialize(using = EncryptedJsonDeserializer.class)
-    @XmlElement
+    @XmlElement(name = "GPA")
     private double GPA;
 
     public Student(String name, int age, double GPA) {
@@ -42,6 +42,5 @@ public class Student implements Serializable {
         this.GPA = GPA;
     }
     public Student(){}
-
 
 }

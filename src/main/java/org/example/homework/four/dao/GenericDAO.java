@@ -1,4 +1,4 @@
-package org.example.homework.four.service.dao;
+package org.example.homework.four.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

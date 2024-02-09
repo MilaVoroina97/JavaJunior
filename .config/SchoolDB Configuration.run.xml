@@ -12,7 +12,7 @@
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="MYSQL_DATABASE" />
-              <option name="value" value="StudentsDB" />
+              <option name="value" value="schooldb" />
             </DockerEnvVarImpl>
           </list>
         </option>
@@ -22,14 +22,6 @@
               <option name="containerPort" value="3306" />
               <option name="hostPort" value="3306" />
             </DockerPortBindingImpl>
-          </list>
-        </option>
-        <option name="volumeBindings">
-          <list>
-            <DockerVolumeBindingImpl>
-              <option name="containerPath" value="/var/lib/mysql" />
-              <option name="hostPath" value="C:\Users\ASUS\IdeaProjects\Java_Junior\.containers\databaseSchool" />
-            </DockerVolumeBindingImpl>
           </list>
         </option>
       </settings>

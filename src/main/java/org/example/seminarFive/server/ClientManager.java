@@ -1,4 +1,4 @@
-package org.example.seminarFive.chat;
+package org.example.seminarFive.server;
 
 import java.io.*;
 import java.net.Socket;
