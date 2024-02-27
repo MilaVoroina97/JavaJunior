@@ -9,7 +9,6 @@ import java.util.PriorityQueue;
 
 public class ClientManager1 implements Runnable{
 
-
     private Socket socket;
     private BufferedReader reader;
     private BufferedWriter writer;
@@ -88,6 +87,10 @@ public class ClientManager1 implements Runnable{
         });
         String[] messageFromClientArray = message.split(" ");
         boolean isPrivateMessage = messageFromClientArray[1].trim().startsWith("@");
+
+        // Check if the message is a typing message
+        boolean isTypingMessage = message.contains("is typing...");
+
         for (ClientManager1 client : clients) {
 
             // Skip broadcasting low priority message if showLowPriority flag is false
@@ -97,7 +100,17 @@ public class ClientManager1 implements Runnable{
 
             // Check if the message priority is low and the flag to show low priority is true
             Priority priority = getMessagePriority(message);
-            if(isLowPriority(priority)){
+
+            if(isTypingMessage){
+                try {
+                    if(!client.name.equals(this.name))
+                        // Broadcast the typing message to all clients
+                        messageSender(message,client);
+                } catch (IOException e) {
+                    closeEverything(socket, reader, writer);
+                }
+            }
+            else if(isLowPriority(priority)){
                 continue;
             }
             boolean isClientNameExists = messageFromClientArray[1].replace("@", "").equals(client.name);

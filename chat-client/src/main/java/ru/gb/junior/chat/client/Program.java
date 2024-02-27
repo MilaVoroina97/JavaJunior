@@ -26,7 +26,7 @@ public class Program {
             System.out.println("LocalPort: " + socket.getLocalPort());
 
             client.listenForMessage();
-            //client.sendTypingMessage();
+            client.startTypingDetection();
             client.sendMessage();
 
         } catch (IOException e) {

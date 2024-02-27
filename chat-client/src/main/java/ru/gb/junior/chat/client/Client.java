@@ -55,6 +55,22 @@ public class Client {
         }).start();
     }
 
+    public void startTypingDetection(){
+        new Thread(() -> {
+            Scanner scanner = new Scanner(System.in);
+            boolean isTyping = false;
+            while (socket.isConnected()){
+                String userInput = scanner.nextLine();
+                if(!isTyping && !userInput.isEmpty()){
+                    sendTypingMessage();
+                    isTyping = true;
+                }else if(isTyping && userInput.isEmpty()){
+                    isTyping = false;
+                }
+            }
+        }).start();
+    }
+
     /**
      * Send message to the server from the main thread
      */
