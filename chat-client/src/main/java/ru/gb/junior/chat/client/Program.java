@@ -3,7 +3,6 @@ package ru.gb.junior.chat.client;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class Program {
@@ -22,11 +21,12 @@ public class Program {
             Client client = new Client(socket,name);
 
             System.out.println("InetAddress:" + inetAddress);
-            String remoteIp =inetAddress.getHostAddress();
+            String remoteIp = inetAddress.getHostAddress();
             System.out.println("Remote IP: " + remoteIp);
             System.out.println("LocalPort: " + socket.getLocalPort());
 
             client.listenForMessage();
+            //client.sendTypingMessage();
             client.sendMessage();
 
         } catch (IOException e) {

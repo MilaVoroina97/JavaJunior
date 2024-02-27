@@ -2,7 +2,6 @@ package org.example.serverapp;
 
 import java.io.*;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -34,11 +33,12 @@ public class ClientManager {
         //create stream for reading and writing, and reading from console
         try {
 
-            inputFromUser = new BufferedReader(new InputStreamReader(System.in));
+            inputFromUser = new BufferedReader(new InputStreamReader(System.in)); // read from console
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
             this.enterNickname(); //receive name from client
-
+            new ReadingMsg().start(); //thread reading messages from a socket in an infinite loop
+            new WritingMsg().start(); //thread writing messages to the socket coming from the console in an endless loop
         }catch (IOException e){
 
             //The socket must be closed on any error other than a socket constructor error

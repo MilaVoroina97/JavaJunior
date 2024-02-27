@@ -22,7 +22,7 @@ public class Server {
                 //make the main thread waiting for client connection
                 Socket socket = serverSocket.accept();
                 System.out.println("New client has just joined the chat");
-                ClientManager clientManager = new ClientManager(socket);
+                ClientManager1 clientManager = new ClientManager1(socket);
                 Thread thread = new Thread(clientManager);
                 thread.start();
             }

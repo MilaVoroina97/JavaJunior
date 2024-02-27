@@ -69,7 +69,7 @@ public class Client {
 
             while (socket.isConnected()){
                 String message = scanner.nextLine();
-                writer.write(name + " : " + message);
+                writer.write(name + ": " + message);
                 writer.newLine();
                 writer.flush();
             }
@@ -77,6 +77,17 @@ public class Client {
             closeEverything(socket,reader,writer);
         }
     }
+
+    public void sendTypingMessage() {
+        try {
+            writer.write(name + " is typing...");
+            writer.newLine();
+            writer.flush();
+        } catch (IOException e) {
+            closeEverything(socket, reader, writer);
+        }
+    }
+
 
     /**
      * If occurs exceptions during processes of input or output stream or socket connection,

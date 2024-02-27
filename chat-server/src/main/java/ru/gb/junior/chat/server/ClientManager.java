@@ -92,7 +92,18 @@ public class ClientManager implements Runnable{
                     closeEverything(socket,reader,writer);
                     break;
                 }
-                broadcastMessage(messageFromClient);
+                String[] messageFromClientArray = messageFromClient.split(" ",3);
+                for(int i = 0; i < messageFromClientArray.length; i++)
+                    System.out.println(messageFromClientArray[i]);
+                if(messageFromClientArray[1].charAt(0) == '@'){
+                    String name = messageFromClientArray[1].substring( 1);
+                    String message = messageFromClientArray[0] + " " + messageFromClientArray[2];
+                    System.out.println("user: " + name) ;
+                    System.out.println("message: " + message);
+                    sendPrivateMessage(message,name);
+                }else{
+                    broadcastMessage(messageFromClient);
+                }
             } catch (IOException e) {
                 closeEverything(socket,reader,writer);
                 break;
@@ -125,5 +136,28 @@ public class ClientManager implements Runnable{
             }
         }
 
+    }
+
+    /**
+     * Private method for creating mechanism of sending private messages
+     * @param message from other client
+     * @param user name of client which we need to send a message
+     */
+    private void sendPrivateMessage(String message, String user){
+
+        for(ClientManager client : clients){
+            try {
+
+                if(client.name.equals(user) && message != null){
+
+                    client.writer.write(message);
+                    client.writer.newLine();
+                    client.writer.flush();
+                }
+
+            } catch (IOException e) {
+                closeEverything(socket, reader, writer);
+            }
+        }
     }
 }
